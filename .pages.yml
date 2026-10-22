@@ -1,0 +1,93 @@
+media:
+  input: media
+  output: /media
+  rename: safe
+  categories: [image]
+
+content:
+  - name: players
+    label: اللاعبون
+    type: collection
+    path: content/players
+    filename: "{primary}.json"
+    format: json
+    fields:
+      - name: name
+        label: اسم اللاعب
+        type: string
+        required: true
+      - name: photo
+        label: صورة اللاعب
+        type: image
+      - name: position
+        label: مركز اللاعب
+        type: string
+      - name: age
+        label: عمر اللاعب
+        type: number
+      - name: description
+        label: معلومات إضافية
+        type: text
+
+  - name: coaches
+    label: المدربون
+    type: collection
+    path: content/coaches
+    filename: "{primary}.json"
+    format: json
+    fields:
+      - name: name
+        label: اسم المدرب
+        type: string
+        required: true
+      - name: photo
+        label: صورة المدرب
+        type: image
+      - name: specialty
+        label: التخصص
+        type: string
+      - name: phone
+        label: رقم التواصل
+        type: string
+
+  - name: matches
+    label: المباريات
+    type: collection
+    path: content/matches
+    filename: "{primary}.json"
+    format: json
+    fields:
+      - name: title
+        label: اسم المباراة
+        type: string
+        required: true
+      - name: date
+        label: موعد المباراة
+        type: date
+      - name: location
+        label: مكان المباراة
+        type: string
+      - name: result
+        label: نتيجة المباراة
+        type: string
+
+  - name: news
+    label: الأخبار والإنجازات
+    type: collection
+    path: content/news
+    filename: "{primary}.json"
+    format: json
+    fields:
+      - name: title
+        label: العنوان
+        type: string
+        required: true
+      - name: date
+        label: التاريخ
+        type: date
+      - name: image
+        label: الصورة
+        type: image
+      - name: body
+        label: التفاصيل
+        type: rich-text
