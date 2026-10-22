@@ -2,15 +2,62 @@ media:
   input: media
   output: /media
   rename: safe
-  categories: [image]
+  categories:
+    - image
 
 content:
+  - name: academy
+    label: إعدادات الأكاديمية
+    type: file
+    path: content/academy.json
+    format: json
+    fields:
+      - name: name
+        label: اسم الأكاديمية
+        type: string
+        required: true
+      - name: description
+        label: نبذة عن الأكاديمية
+        type: text
+      - name: logo
+        label: شعار الأكاديمية
+        type: image
+      - name: cover
+        label: صورة الواجهة الرئيسية
+        type: image
+      - name: phone
+        label: رقم الهاتف
+        type: string
+      - name: whatsapp
+        label: رقم واتساب
+        type: string
+      - name: facebook
+        label: رابط فيسبوك
+        type: string
+      - name: instagram
+        label: رابط إنستغرام
+        type: string
+      - name: address
+        label: عنوان الأكاديمية
+        type: text
+
   - name: players
-    label: اللاعبون
+    label: إدارة اللاعبين
     type: collection
     path: content/players
     filename: "{primary}.json"
     format: json
+    view:
+      primary: name
+      fields:
+        - name
+        - position
+        - category
+        - number
+      search:
+        - name
+        - position
+        - category
     fields:
       - name: name
         label: اسم اللاعب
@@ -19,22 +66,53 @@ content:
       - name: photo
         label: صورة اللاعب
         type: image
-      - name: position
-        label: مركز اللاعب
-        type: string
-      - name: age
-        label: عمر اللاعب
+      - name: number
+        label: رقم القميص
         type: number
+      - name: position
+        label: مركز اللعب
+        type: select
+        options:
+          values:
+            - حارس مرمى
+            - دفاع
+            - وسط
+            - هجوم
+      - name: category
+        label: الفئة العمرية
+        type: select
+        options:
+          values:
+            - براعم
+            - أشبال
+            - ناشئين
+            - شباب
+            - فئة أولى
+      - name: birth_date
+        label: تاريخ الميلاد
+        type: date
       - name: description
         label: معلومات إضافية
         type: text
+      - name: active
+        label: اللاعب مسجل حاليًا
+        type: boolean
 
   - name: coaches
-    label: المدربون
+    label: إدارة المدربين
     type: collection
     path: content/coaches
     filename: "{primary}.json"
     format: json
+    view:
+      primary: name
+      fields:
+        - name
+        - specialty
+        - category
+      search:
+        - name
+        - specialty
     fields:
       - name: name
         label: اسم المدرب
@@ -46,30 +124,75 @@ content:
       - name: specialty
         label: التخصص
         type: string
+      - name: category
+        label: الفئة التي يدربها
+        type: string
+      - name: experience
+        label: سنوات الخبرة
+        type: number
+      - name: qualifications
+        label: الشهادات والخبرات
+        type: text
       - name: phone
         label: رقم التواصل
         type: string
 
   - name: matches
-    label: المباريات
+    label: إدارة المباريات
     type: collection
     path: content/matches
     filename: "{primary}.json"
     format: json
+    view:
+      primary: title
+      fields:
+        - title
+        - date
+        - opponent
+        - status
+      sort:
+        - date
+      default:
+        sort: date
+        order: desc
+      search:
+        - title
+        - opponent
     fields:
       - name: title
-        label: اسم المباراة
+        label: عنوان المباراة
         type: string
         required: true
+      - name: opponent
+        label: الفريق المنافس
+        type: string
       - name: date
         label: موعد المباراة
         type: date
       - name: location
-        label: مكان المباراة
+        label: الملعب
         type: string
-      - name: result
-        label: نتيجة المباراة
-        type: string
+      - name: status
+        label: حالة المباراة
+        type: select
+        options:
+          values:
+            - قادمة
+            - انتهت
+            - تأجلت
+            - أُلغيت
+      - name: home_score
+        label: أهداف الأكاديمية
+        type: number
+      - name: away_score
+        label: أهداف الفريق المنافس
+        type: number
+      - name: report
+        label: تفاصيل المباراة
+        type: text
+      - name: photo
+        label: صورة المباراة
+        type: image
 
   - name: news
     label: الأخبار والإنجازات
@@ -77,17 +200,81 @@ content:
     path: content/news
     filename: "{primary}.json"
     format: json
+    view:
+      primary: title
+      fields:
+        - title
+        - date
+        - category
+        - published
+      sort:
+        - date
+      default:
+        sort: date
+        order: desc
+      search:
+        - title
+        - category
     fields:
       - name: title
-        label: العنوان
+        label: عنوان الخبر
         type: string
         required: true
+      - name: category
+        label: نوع المحتوى
+        type: select
+        options:
+          values:
+            - أخبار
+            - إنجازات
+            - بطولات
+            - تدريبات
+            - إعلانات
       - name: date
-        label: التاريخ
+        label: تاريخ النشر
         type: date
       - name: image
-        label: الصورة
+        label: صورة الخبر
         type: image
+      - name: summary
+        label: ملخص الخبر
+        type: text
       - name: body
-        label: التفاصيل
+        label: تفاصيل الخبر
         type: rich-text
+      - name: published
+        label: نشر الخبر
+        type: boolean
+
+  - name: registrations
+    label: معلومات التسجيل
+    type: file
+    path: content/registrations.json
+    format: json
+    fields:
+      - name: open
+        label: التسجيل مفتوح
+        type: boolean
+      - name: instructions
+        label: تعليمات التسجيل
+        type: text
+      - name: locations
+        label: مواقع التسجيل
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: اسم الموقع
+            type: string
+          - name: address
+            label: العنوان
+            type: string
+          - name: phone
+            label: رقم التواصل
+            type: string
+      - name: fees
+        label: رسوم الاشتراك
+        type: string
+      - name: fees_note
+        label: ملاحظات الرسوم
+        type: string
