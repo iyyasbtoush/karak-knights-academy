@@ -1,9 +1,4 @@
-media:
-  input: media
-  output: /media
-  rename: safe
-  categories:
-    - image
+media: media
 
 content:
   - name: academy
@@ -23,7 +18,7 @@ content:
         label: شعار الأكاديمية
         type: image
       - name: cover
-        label: صورة الواجهة الرئيسية
+        label: صورة الواجهة
         type: image
       - name: phone
         label: رقم الهاتف
@@ -42,22 +37,15 @@ content:
         type: text
 
   - name: players
-    label: إدارة اللاعبين
+    label: اللاعبون
     type: collection
     path: content/players
-    filename: "{primary}.json"
     format: json
+    filename: "{primary}.json"
     view:
       primary: name
-      fields:
-        - name
-        - position
-        - category
-        - number
-      search:
-        - name
-        - position
-        - category
+      fields: [name, position, category, number]
+      search: [name, position, category]
     fields:
       - name: name
         label: اسم اللاعب
@@ -99,20 +87,15 @@ content:
         type: boolean
 
   - name: coaches
-    label: إدارة المدربين
+    label: المدربون
     type: collection
     path: content/coaches
-    filename: "{primary}.json"
     format: json
+    filename: "{primary}.json"
     view:
       primary: name
-      fields:
-        - name
-        - specialty
-        - category
-      search:
-        - name
-        - specialty
+      fields: [name, specialty, category]
+      search: [name, specialty]
     fields:
       - name: name
         label: اسم المدرب
@@ -138,26 +121,19 @@ content:
         type: string
 
   - name: matches
-    label: إدارة المباريات
+    label: المباريات
     type: collection
     path: content/matches
-    filename: "{primary}.json"
     format: json
+    filename: "{primary}.json"
     view:
       primary: title
-      fields:
-        - title
-        - date
-        - opponent
-        - status
-      sort:
-        - date
+      fields: [title, date, opponent, status]
+      sort: [date]
+      search: [title, opponent]
       default:
         sort: date
         order: desc
-      search:
-        - title
-        - opponent
     fields:
       - name: title
         label: عنوان المباراة
@@ -180,7 +156,7 @@ content:
             - قادمة
             - انتهت
             - تأجلت
-            - أُلغيت
+            - ألغيت
       - name: home_score
         label: أهداف الأكاديمية
         type: number
@@ -198,23 +174,16 @@ content:
     label: الأخبار والإنجازات
     type: collection
     path: content/news
-    filename: "{primary}.json"
     format: json
+    filename: "{primary}.json"
     view:
       primary: title
-      fields:
-        - title
-        - date
-        - category
-        - published
-      sort:
-        - date
+      fields: [title, date, category, published]
+      sort: [date]
+      search: [title, category]
       default:
         sort: date
         order: desc
-      search:
-        - title
-        - category
     fields:
       - name: title
         label: عنوان الخبر
@@ -247,7 +216,7 @@ content:
         type: boolean
 
   - name: registrations
-    label: معلومات التسجيل
+    label: التسجيل في الأكاديمية
     type: file
     path: content/registrations.json
     format: json
